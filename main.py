@@ -92,7 +92,7 @@ async def main(kaspad, address, mine_when_not_synced=False):
 # ))
 
 asyncio.run(main(
-    kaspad="192.168.86.72:16610",
+    kaspad="127.0.0.1:16610",
     address="kaspadev:qz4jdyu04hv4hpyy00pl6trzw4gllnhnwy62xattejv2vaj5r0p5qsjkkafj9",
     mine_when_not_synced=True
 ))

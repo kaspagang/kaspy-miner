@@ -15,16 +15,16 @@ HEAVY_HEADER = struct.pack("<136s", b"\x01\x88\x01\x00\x01\x48HeavyHash")
 
 class Xoshiro256PlusPlus(object):
     def __init__(self, state):
-        self.state = [np.uint64(x) for x in state]
+        self.state = [x for x in state]
 
     @staticmethod
     def _rotl(x, k):
-        return np.left_shift(x, k, dtype="uint64") | np.right_shift(x, (64 - k), dtype="uint64")
+        return ((x << k) & 0xFFFFFFFFFFFFFFFF) | (x >> (64 - k))
 
     def __next__(self):
-        result = np.add(self._rotl(np.add(self.state[0], self.state[3], dtype="uint64"), 23), self.state[0], dtype="uint64")
+        result = (self._rotl((self.state[0] + self.state[3]) & 0xFFFFFFFFFFFFFFFF, 23) + self.state[0]) & 0xFFFFFFFFFFFFFFFF
 
-        t = np.left_shift(self.state[1], 17, dtype="uint64")
+        t = (self.state[1] << 17) & 0xFFFFFFFFFFFFFFFF
 
         self.state[2] ^= self.state[0]
         self.state[3] ^= self.state[1]
