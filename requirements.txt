@@ -1,0 +1,4 @@
+grpcio-tools==1.46.3
+grpcio==1.46.3
+cbitstruct==1.0.7
+numpy==1.22.4
